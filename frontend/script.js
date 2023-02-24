@@ -70,14 +70,16 @@ function login() {
             .then(response => response.json())
             .then(response => {
                 if (response.validacao === true) {
-                    console.log(response)
                     localStorage.setItem('email', email)
-                    window.location.href = "./dashboard.html"
+                    if (response.usertipo === 'Gerente') {
+                      window.location.href = "./dashboard.html"
+                    }else{
+                      window.location.href = "./funcionario.html"
+                    }
+                    
                 } else {
                     console.log("pode nada")
                 }
             })
-
     }
-
 }

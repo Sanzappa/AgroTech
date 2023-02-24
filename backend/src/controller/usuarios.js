@@ -37,10 +37,9 @@ const login = async (req, res) => {
             if (value) {
                 let data = { "userid": usuario.id, "tipo": usuario.tipo }
                 jwt.sign(data, process.env.KEY, { expiresIn: '1m' }, function (err2, token) {
-                    console.log("a")
                     if (err2 == null) {
 
-                        res.status(200).json({ "token": token, "userid": usuario.id, "username": usuario.nome, "validacao": true }).end()
+                        res.status(200).json({ "token": token, "usertipo": usuario.tipo, "username": usuario.nome, "validacao": true }).end()
                     } else {
                         res.status(500).json(err2).end()
                     }

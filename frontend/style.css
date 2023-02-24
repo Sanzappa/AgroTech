@@ -23,26 +23,13 @@ body {
   place-content: center;
   width: calc(100% - 40px);
 }
-@media (max-width: 767px) {
-  .page {
-    height: auto;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-  }
-}
 .container {
   display: flex;
   height: 320px;
   margin: 0 auto;
   width: 640px;
 }
-@media (max-width: 767px) {
-  .container {
-    flex-direction: column;
-    height: 630px;
-    width: 320px;
-  }
-}
+
 .left {
   background: white;
   height: calc(100% - 40px);
@@ -50,14 +37,7 @@ body {
   position: relative;
   width: 50%;
 }
-@media (max-width: 767px) {
-  .left {
-    height: 100%;
-    left: 20px;
-    width: calc(100% - 40px);
-    max-height: 270px;
-  }
-}
+
 .login {
   font-size: 50px;
   font-weight: 900;
@@ -76,14 +56,6 @@ body {
   position: relative;
   width: 50%;
   border-radius: 10px;
-}
-@media (max-width: 767px) {
-  .right {
-    flex-shrink: 0;
-    height: 100%;
-    width: 100%;
-    max-height: 350px;
-  }
 }
 svg {
   position: absolute;
