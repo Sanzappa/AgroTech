@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +9,7 @@
     <link rel="stylesheet" href="./dashStyle.css">
 </head>
 
-<body>
+<body onload="loadVeiculos()">
     <header>
         <div class="logosec">
             <div class="logo">AgroTech</div>
@@ -20,58 +21,78 @@
             <nav class="nav">
                 <div class="nav-upper-options">
                     <div class="nav-option option1">
-                        <img src="https://cdn-icons-png.flaticon.com/512/75/75800.png"
-                            class="nav-img" alt="veiculos">
+                        <img src="https://cdn-icons-png.flaticon.com/512/75/75800.png" class="nav-img" alt="veiculos">
                         <h3>Veiculos</h3>
                     </div>
                     <div class="option2 nav-option">
-                        <img src="https://static.thenounproject.com/png/3147052-200.png"
-                            class="nav-img" alt="operacoes">
+                        <img src="https://static.thenounproject.com/png/3147052-200.png" class="nav-img"
+                            alt="operacoes">
                         <h3> Operações</h3>
                     </div>
                     <div class="nav-option option3">
-                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183320/5.png"
-                            class="nav-img" alt="report">
-                        <h3> Report</h3>
+                        <img src="https://cdn-icons-png.flaticon.com/512/1200/1200368.png" class="nav-img"
+                            alt="manutencoes">
+                        <h3> Manutenções</h3>
                     </div>
                     <div class="nav-option option4">
-                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/6.png"
-                            class="nav-img" alt="institution">
-                        <h3> Institution</h3>
+                        <img src="https://www.freeiconspng.com/thumbs/driver-icon/driver-icon-14.png" class="nav-img"
+                            alt="motoristas">
+                        <h3> Motoristas</h3>
+                    </div>
+                    <div class="nav-option option5">
+                        <img src="http://cdn.onlinewebfonts.com/svg/img_233159.png" class="nav-img" alt="dashboard">
+                        <h3> DashBoard</h3>
                     </div>
                     <div class="nav-option logout">
-                        <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210183321/7.png"
-                            class="nav-img" alt="logout">
+                        <img src="https://cdn-icons-png.flaticon.com/512/5714/5714125.png" class="nav-img" alt="logout">
                         <h3>Sair</h3>
                     </div>
                 </div>
             </nav>
         </div>
-            <div class="report-container">
-                <div class="report-header">
-                    <h1 class="recent-Articles"></h1>
-                    <button class="view">Registrar</button>
-                </div>
-                <div class="report-body">
-                    <div class="report-topic-heading">
-                        <h3 class="t-op">Article</h3>
-                        <h3 class="t-op">Views</h3>
-                        <h3 class="t-op">Comments</h3>
-                        <h3 class="t-op">Status</h3>
-                    </div>
-                    <div class="items">
-                        <div class="item1">
-                            <h3 class="t-op-nextlvl">Article 73</h3>
-                            <h3 class="t-op-nextlvl">2.9k</h3>
-                            <h3 class="t-op-nextlvl">210</h3>
-                            <h3 class="t-op-nextlvl label-tag">Published</h3>
-                        </div>
-                        </div>
+        <div class="report-container">
+            <div class="report-header">
+                <h1 class="recent-Articles">Veiculos</h1>
+                <button class="view" onclick="toggleModal()" >Cadastrar</button>
+                <div class='modal escondido'>
+                    <div class='modal-container'> <span class='close' onclick='toggleModal()'>X</span>
+                        <input placeholder="Placa do Veiculo" type="text" id="veicPlaca">
+                        <input placeholder="Modelo do Veiculo" type="text" id="veicModelo">
+                        <input placeholder="Marca do Veiculo" type="text" id="veicMarca">
+                        <input placeholder="Tipo do Veiculo" type="text" id="veicTipo">
+                        <button onclick="cadastrarVeiculo()"><span>Cadastrar</span></button>
                     </div>
                 </div>
+
+            </div>
+            <div class="report-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td>Placa</td>
+                            <td>Modelo</td>
+                            <td>Marca</td>
+                            <td>Tipo</td>
+                            <td>Disponibilidade</td>
+                        </tr>
+                    </thead>
+                    <tbody id="info-veiculo">
+                        <tr class="model" id="tr">
+                            <td id="id"></td>
+                            <td id="placa"></td>
+                            <td id="modelo"></td>
+                            <td id="marca"></td>
+                            <td id="tipo"></td>
+                            <td id="disponibilidade"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+    </div>
     <script src="./dashScript.js"></script>
 </body>
+
 </html>
