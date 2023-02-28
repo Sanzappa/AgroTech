@@ -136,16 +136,11 @@ header {
     gap: 30px;
 }
 
-.option1 {
+.optionall {
     border-left: 5px solid #010058af;
     background-color: var(--Border-color);
     color: white;
     cursor: pointer;
-}
-
-.option1:hover {
-    border-left: 5px solid #010058af;
-    background-color: var(--Border-color);
 }
 
 .report-container {

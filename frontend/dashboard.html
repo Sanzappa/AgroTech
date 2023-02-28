@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./dashStyle.css">
 </head>
 
-<body onload="loadVeiculos()">
+<body onload="loadVeiculos(), loadOperacoes(), loadManutencoes(), loadMotoristas()">
     <header>
         <div class="logosec">
             <div class="logo">AgroTech</div>
@@ -20,26 +20,26 @@
         <div class="navcontainer">
             <nav class="nav">
                 <div class="nav-upper-options">
-                    <div class="nav-option option1">
+                    <div class="nav-option option1 optionall" onclick="alterarPage(this)" id="op1">
                         <img src="https://cdn-icons-png.flaticon.com/512/75/75800.png" class="nav-img" alt="veiculos">
                         <h3>Veiculos</h3>
                     </div>
-                    <div class="option2 nav-option">
+                    <div class=" nav-option option2" onclick="alterarPage(this)" id="op2">
                         <img src="https://static.thenounproject.com/png/3147052-200.png" class="nav-img"
                             alt="operacoes">
                         <h3> Operações</h3>
                     </div>
-                    <div class="nav-option option3">
+                    <div class="nav-option option3" onclick="alterarPage(this)" id="op3">
                         <img src="https://cdn-icons-png.flaticon.com/512/1200/1200368.png" class="nav-img"
                             alt="manutencoes">
                         <h3> Manutenções</h3>
                     </div>
-                    <div class="nav-option option4">
+                    <div class="nav-option option4" onclick="alterarPage(this)" id="op4">
                         <img src="https://www.freeiconspng.com/thumbs/driver-icon/driver-icon-14.png" class="nav-img"
                             alt="motoristas">
                         <h3> Motoristas</h3>
                     </div>
-                    <div class="nav-option option5">
+                    <div class="nav-option option5" onclick="alterarPage(this)" id="op5">
                         <img src="http://cdn.onlinewebfonts.com/svg/img_233159.png" class="nav-img" alt="dashboard">
                         <h3> DashBoard</h3>
                     </div>
@@ -50,12 +50,12 @@
                 </div>
             </nav>
         </div>
-        <div class="report-container">
+        <div class="report-container " id="option1">
             <div class="report-header">
                 <h1 class="recent-Articles">Veiculos</h1>
-                <button class="view" onclick="toggleModal()" >Cadastrar</button>
+                <button class="view" onclick="toggleModal(this)" id="btn1">Cadastrar</button>
                 <div class='modal escondido'>
-                    <div class='modal-container'> <span class='close' onclick='toggleModal()'>X</span>
+                    <div class='modal-container'> <span class='close' onclick='toggleModal(this)' id="sp1" >X</span>
                         <input placeholder="Placa do Veiculo" type="text" id="veicPlaca">
                         <input placeholder="Modelo do Veiculo" type="text" id="veicModelo">
                         <input placeholder="Marca do Veiculo" type="text" id="veicMarca">
@@ -79,12 +79,123 @@
                     </thead>
                     <tbody id="info-veiculo">
                         <tr class="model" id="tr">
-                            <td id="id"></td>
+                            <td id="idV"></td>
                             <td id="placa"></td>
                             <td id="modelo"></td>
                             <td id="marca"></td>
                             <td id="tipo"></td>
                             <td id="disponibilidade"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="report-container model" id="option2">
+            <div class="report-header">
+                <h1 class="recent-Articles">Operações</h1>
+                <button class="view" onclick="toggleModal(this)" id="btn2" >Cadastrar</button>
+                <div class='modal escondido'>
+                    <div class='modal-container'> <span class='close' onclick='toggleModal(this)' id="sp2">X</span>
+                        <input placeholder="ID do motorista" type="text" id="opMot">
+                        <input placeholder="Data de saída" type="date" id="opDataS">
+                        <input placeholder="Data de Retorno" type="date" id="opDataR">
+                        <input placeholder="Descrição" type="text" id="opDesc">
+                        <button onclick="cadastrarVeiculo()"><span>Cadastrar</span></button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="report-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td>ID do motorista</td>
+                            <td>Data de Saida</td>
+                            <td>Data de Retorno</td>
+                            <td>Descrição</td>
+                        </tr>
+                    </thead>
+                    <tbody id="info-operacao">
+                        <tr class="model" id="tr">
+                            <td id="id-op"></td>
+                            <td id="id-motorista"></td>
+                            <td id="data-saida"></td>
+                            <td id="data-retorno"></td>
+                            <td id="descricao"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="report-container model" id="option3">
+            <div class="report-header">
+                <h1 class="recent-Articles">Manutenções</h1>
+                <button class="view" onclick="toggleModal(this)" id="btn3" >Cadastrar</button>
+                <div class='modal escondido'>
+                    <div class='modal-container'> <span class='close' onclick='toggleModal(this)' id="sp3" >X</span>
+                        <input placeholder="Data de Inicio" type="date" id="manDataI">
+                        <input placeholder="Data do Fim" type="date" id="manDataF">
+                        <input placeholder="Valor" type="number" id="manValor">
+                        <input placeholder="Descrição" type="text" id="manDesc">
+                        <button onclick="cadastrarVeiculo()"><span>Cadastrar</span></button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="report-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td>Data de Inicio</td>
+                            <td>Data do Fim</td>
+                            <td>Valor</td>
+                            <td>Descrição</td>
+                        </tr>
+                    </thead>
+                    <tbody id="info-manutencao">
+                        <tr class="model" id="tr">
+                            <td id="id-man"></td>
+                            <td id="data-inicio"></td>
+                            <td id="data-fim"></td>
+                            <td id="valor"></td>
+                            <td id="descricao-man"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="report-container model" id="option4">
+            <div class="report-header">
+                <h1 class="recent-Articles">Motoristas</h1>
+                <button class="view" onclick="toggleModal(this)" id="btn4">Cadastrar</button>
+                <div class='modal escondido'>
+                    <div class='modal-container'> <span class='close' onclick='toggleModal(this)' id="sp4" >X</span>
+                        <input placeholder="CPF" type="text" id="cpf">
+                        <input placeholder="CNH" type="text" id="cnh">
+                        <input placeholder="Nome" type="text" id="nome">
+                        <button onclick="cadastrarVeiculo()"><span>Cadastrar</span></button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="report-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td>CPF</td>
+                            <td>CNH</td>
+                            <td>Nome</td>
+                        </tr>
+                    </thead>
+                    <tbody id="info-motoristas">
+                        <tr class="model" id="tr">
+                            <td id="id-mot"></td>
+                            <td id="cpf"></td>
+                            <td id="cnh"></td>
+                            <td id="nome"></td>
                         </tr>
                     </tbody>
                 </table>
