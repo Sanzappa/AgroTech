@@ -19,9 +19,11 @@ const read = async (req, res) => {
 }
 
 const update = async (req, res) => {
+    let id = Number(req.body.id)
+    delete req.body.id
     const veiculos = await prisma.veiculos.update({
         where: {
-            id: Number(req.body.id)
+            id: id
         },
         data: req.body
     })
