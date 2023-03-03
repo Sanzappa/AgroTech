@@ -91,7 +91,11 @@ function loadManutencoes() {
 
                 manutencao.querySelector("#id-man").innerHTML = e.id
                 manutencao.querySelector("#data-inicio").innerHTML = new Date(e.data_inicio).toLocaleDateString('pt-br', { timeZone: 'UTC' })
-                manutencao.querySelector("#data-fim").innerHTML = e.data_fim
+                if (e.data_fim != null) {
+                    manutencao.querySelector("#data-fim").innerHTML = new Date(e.data_fim).toLocaleDateString('pt-br', { timeZone: 'UTC' })
+                } else {
+                    manutencao.querySelector("#data-fim").innerHTML = e.data_fim
+                }
                 manutencao.querySelector("#valor").innerHTML = "R$" + e.valor
                 manutencao.querySelector("#descricao-man").innerHTML = e.descricao
 
@@ -137,7 +141,7 @@ function toggleModal(e) {
 var idV
 
 function toggleModalAlterar(e) {
-    if (e==null) {
+    if (e == null) {
         document.querySelector('.alterar').classList.toggle('escondido')
         document.body.style.overflow = 'hidden'
     } else {
@@ -163,9 +167,9 @@ function toggleModalAlterar(e) {
 var idOp
 
 function toggleModalAlterarOp(e) {
-    if (e==null) {
-        document.querySelector('.alterarOp').classList.toggle('escondido')
-        document.body.style.overflow = 'hidden'
+    if (e == null) {
+        document.querySelector('.alterarOp').classList.add('escondido')
+        document.body.style.overflow = 'auto'
     } else {
         var descricao = document.querySelector('.alterarOp').querySelector("#descOperacao")
         idOp = e.parentNode.parentNode.querySelector('#id-op').innerHTML
@@ -177,6 +181,55 @@ function toggleModalAlterarOp(e) {
             document.querySelector('.alterarOp').classList.toggle('escondido')
             document.body.style.overflow = 'hidden'
         }
+    }
+}
+
+var idMan
+
+function toggleModalAlterarMan(e) {
+    if (e == null) {
+        document.querySelector('.alterarMan').classList.add('escondido')
+        document.body.style.overflow = 'auto'
+    } else {
+        var descricao = document.querySelector('.alterarMan').querySelector("#descMan")
+        idMan = e.parentNode.parentNode.querySelector('#id-man').innerHTML
+        descricao.value = e.parentNode.parentNode.querySelector('#descricao-man').innerHTML
+        if (e.id.slice(0, 1) == "s") {
+            document.querySelector('.alterarMan').classList.toggle('escondido')
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.querySelector('.alterarMan').classList.toggle('escondido')
+            document.body.style.overflow = 'hidden'
+        }
+    }
+}
+
+var idMot
+
+function toggleModalAlterarMot(e) {
+    if (e == null) {
+        document.querySelector('.alterarMot').classList.add('escondido')
+        document.body.style.overflow = 'auto'
+    } else {
+        var nome = document.querySelector('.alterarMot').querySelector("#nomeMot")
+        idMot = e.parentNode.parentNode.querySelector('#id-mot').innerHTML
+        nome.value = e.parentNode.parentNode.querySelector('#nome').innerHTML
+        if (e.id.slice(0, 1) == "s") {
+            document.querySelector('.alterarMot').classList.toggle('escondido')
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.querySelector('.alterarMot').classList.toggle('escondido')
+            document.body.style.overflow = 'hidden'
+        }
+    }
+}
+
+function toggleModalCadastrarOp(e) {
+    document.querySelector('.cadastrarOp').classList.toggle('escondido')
+    if (e == null) {
+        document.body.style.overflow = 'auto'
+    } else {
+        document.body.style.overflow = 'hidden'
     }
 }
 
@@ -328,4 +381,127 @@ function alterarOperacao() {
         .then(response => {
             console.log(response);
         })
+}
+
+function alterarManutencoes() {
+    var data_fim = document.querySelector("#dataFim")
+    var valor = document.querySelector("#valorM")
+    var descricao = document.querySelector("#descMan")
+
+    var manutencao = {
+        "id": idMan,
+        "data_fim": data_fim.value,
+        "valor": parseFloat(valor.value),
+        "descricao": descricao.value,
+    }
+
+    console.log(manutencao)
+
+    fetch("http://localhost:5000/manutencao", {
+        "method": "PUT",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "body": JSON.stringify(manutencao)
+    })
+        .then(response => {
+            console.log(response);
+        })
+}
+
+function alterarMotoristas() {
+    var nome = document.querySelector("#nomeMot")
+
+    var motorista = {
+        "id": idMot,
+        "nome": nome.value
+    }
+
+    console.log(motorista)
+
+    fetch("http://localhost:5000/motorista", {
+        "method": "PUT",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "body": JSON.stringify(motorista)
+    })
+        .then(response => {
+            console.log(response);
+        })
+}
+
+function excluirMotoristas(e) {
+
+    var idMot = e.querySelector("#id-mot").innerHTML
+    
+    var motorista = {
+        "id": idMot
+    }
+
+    console.log(motorista)
+
+    fetch("http://localhost:5000/motorista", {
+        "method": "DELETE",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": JSON.stringify(motorista)
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+}
+
+function excluirOperacoes(e) {
+
+    var idOp = e.querySelector("#id-op").innerHTML
+    
+    var operacao = {
+        "id": idOp
+    }
+
+    console.log(operacao)
+
+    fetch("http://localhost:5000/operacao", {
+        "method": "DELETE",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": JSON.stringify(operacao)
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+}
+
+function excluirVeiculos(e) {
+
+    var idV = e.querySelector("#idV").innerHTML
+    
+    var veiculo = {
+        "id": idV
+    }
+
+    console.log(veiculo)
+
+    fetch("http://localhost:5000/veiculos", {
+        "method": "DELETE",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": JSON.stringify(veiculo)
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.error(err);
+      });
 }

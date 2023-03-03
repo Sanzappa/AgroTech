@@ -21,11 +21,16 @@ const read = async (req, res) => {
 const update = async (req, res) => {
     let id = Number(req.body.id)
     delete req.body.id
+    var info = req.body
+
+    if (info.data_retorno !== undefined) {
+        info.data_retorno = new Date(req.body.data_retorno)
+    }
     const operacao = await prisma.operacao.update({
         where: {
             id: id
         },
-        data: req.body
+        data: info
     })
 
     res.status(200).json(operacao).end()

@@ -96,7 +96,7 @@
                             <td id="tipo"></td>
                             <td id="disponibilidade"></td>
                             <td id="alterar"><button onclick="toggleModalAlterar(this)">Alterar</button></td>
-                            <td id="excluir"><button>Excluir</button></td>
+                            <td id="excluir"><button onclick="excluirVeiculos(this.parentNode.parentNode)">Excluir</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -106,8 +106,8 @@
             <div class="report-header">
                 <h1 class="recent-Articles">Operações</h1>
                 <button class="view" onclick="toggleModal(this)" id="btn2" >Cadastrar</button>
-                <div class='modal escondido'>
-                    <div class='modal-container'> <span class='close' onclick='toggleModal(this)' id="sp2">X</span>
+                <div class='modal cadastrarOp escondido'>
+                    <div class='modal-container'> <span class='close' onclick='toggleModalCadastrarOp(this)' id="sp1">X</span>
                         <input placeholder="ID do motorista" type="number" id="opMot">
                         <input placeholder="Descrição" type="text" id="opDesc">
                         <button onclick="cadastrarOperacao()"><span>Cadastrar</span></button>
@@ -142,7 +142,7 @@
                             <td id="data-retorno"></td>
                             <td id="descricao"></td>
                             <td id="alterar"><button onclick="toggleModalAlterarOp(this)">Alterar</button></td>
-                            <td id="excluir"><button>Excluir</button></td>
+                            <td id="excluir"><button onclick="excluirOperacoes(this.parentNode.parentNode)">Excluir</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -159,7 +159,14 @@
                         <button onclick="cadastrarManutencao()"><span>Cadastrar</span></button>
                     </div>
                 </div>
-
+                <div class='modal alterarMan escondido'>
+                    <div class='modal-container'> <span class='close' onclick='toggleModalAlterarMan(null)' id="sp4">X</span>
+                        <input placeholder="Data do fim" type="date" id="dataFim">
+                        <input placeholder="Valor" type="number" id="valorM">
+                        <input placeholder="Descricao" type="text" id="descMan">
+                        <button onclick="alterarManutencoes()"><span>Alterar</span></button>
+                    </div>
+                </div>
             </div>
             <div class="report-body">
                 <table>
@@ -170,6 +177,7 @@
                             <td>Data do Fim</td>
                             <td>Valor</td>
                             <td>Descrição</td>
+                            <td></td>
                         </tr>
                     </thead>
                     <tbody id="info-manutencao">
@@ -179,6 +187,7 @@
                             <td id="data-fim"></td>
                             <td id="valor"></td>
                             <td id="descricao-man"></td>
+                            <td id="alterarM" ><button onclick="toggleModalAlterarMan(this)" >Alterar</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -189,14 +198,19 @@
                 <h1 class="recent-Articles">Motoristas</h1>
                 <button class="view" onclick="toggleModal(this)" id="btn4">Cadastrar</button>
                 <div class='modal escondido'>
-                    <div class='modal-container'> <span class='close' onclick='toggleModal(this)' id="sp4" >X</span>
+                    <div class='modal-container'> <span class='close' onclick='toggleModal(this)' id="sp5" >X</span>
                         <input placeholder="CPF" type="text" id="cpf">
                         <input placeholder="CNH" type="text" id="cnh">
                         <input placeholder="Nome" type="text" id="nome">
                         <button onclick="cadastrarMotorista()"><span>Cadastrar</span></button>
                     </div>
                 </div>
-
+                <div class='modal alterarMot escondido'>
+                    <div class='modal-container'> <span class='close' onclick='toggleModalAlterarMot(null)' id="sp6">X</span>
+                        <input placeholder="Nome" type="text" id="nomeMot">
+                        <button onclick="alterarMotoristas()"><span>Alterar</span></button>
+                    </div>
+                </div>
             </div>
             <div class="report-body">
                 <table>
@@ -206,6 +220,8 @@
                             <td>CPF</td>
                             <td>CNH</td>
                             <td>Nome</td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     </thead>
                     <tbody id="info-motoristas">
@@ -214,6 +230,8 @@
                             <td id="cpf"></td>
                             <td id="cnh"></td>
                             <td id="nome"></td>
+                            <td id="alterarMotor" ><button onclick="toggleModalAlterarMot(this)" >Alterar</button></td>
+                            <td id="excluirMotor" ><button onclick="excluirMotoristas(this.parentNode.parentNode)" >Excluir</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -223,5 +241,4 @@
     </div>
     <script src="./dashScript.js"></script>
 </body>
-
 </html>
