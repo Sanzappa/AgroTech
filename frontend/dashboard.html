@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>AgroTech</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="./dashStyle.css">
 </head>
 
@@ -185,7 +186,7 @@
                             <td id="id-man"></td>
                             <td id="data-inicio"></td>
                             <td id="data-fim"></td>
-                            <td id="valor"></td>
+                            <td id="valorMan"></td>
                             <td id="descricao-man"></td>
                             <td id="alterarM" ><button onclick="toggleModalAlterarMan(this)" >Alterar</button></td>
                         </tr>
@@ -235,6 +236,26 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+        <div class="report-container model" id="option5">
+            <div class="report-header">
+                <h1 class="recent-Articles"><div class="button_slide slide_right">Veiculos</div></h1>
+                <h1 class="recent-Articles"><div class="button_slide slide_right">Operações</div></h1>
+                <h1 class="recent-Articles"><div class="button_slide slide_right">Manutenções</div></h1>
+                <h1 class="recent-Articles"><div class="button_slide slide_right">Motoristas</div></h1>
+                <div class='modal alterarMot escondido'>
+                    <div class='modal-container'> <span class='close' onclick='toggleModalAlterarMot(null)' id="sp6">X</span>
+                        <input placeholder="Nome" type="text" id="nomeMot">
+                        <button onclick="alterarMotoristas()"><span>Alterar</span></button>
+                    </div>
+                </div>
+            </div>
+            <div class="graficsV">
+            <div class="DoughVChart" style="width: 300px; height: 300px;">
+                <canvas id="myChart"></canvas>
+                <canvas id="doughVChart2"></canvas>
+              </div>
             </div>
         </div>
     </div>

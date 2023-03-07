@@ -43,7 +43,60 @@ function loadVeiculos() {
 
                 document.querySelector("#info-veiculo").appendChild(veiculos)
 
+
+
             })
+            //Grafico de Barras
+
+            let VeiculoLivre = response.reduce((contador, disponibilidade) => disponibilidade.disponivel ? contador + 1 : contador, 0)
+            let VeiculoOcupado = response.reduce((contador, disponibilidade) => !disponibilidade.disponivel ? contador + 1 : contador, 0)
+            const DoughVChart = document.getElementById('myChart');
+
+            new Chart(DoughVChart, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Disponivel', 'Indisponivel'],
+                    datasets: [{
+                        label: 'Disponibilidade Veicular',
+                        data: [VeiculoLivre, VeiculoOcupado],
+                        borderWidth: 1,
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                        ]
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        }
+                    }
+                }
+            });
+
+            
+            const DoughVTChart = document.getElementById('doughVChart2');
+
+            new Chart(DoughVTChart, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Venda', 'Carga', 'Visita'],
+                    datasets: [{
+                        label: 'Tipo Veicular',
+                        data: [VeiculoVenda, VeiculoCarga, VeiculoVisita],
+                        borderWidth: 1,
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)'
+                        ]
+                    }]
+                },
+                options: {
+                    
+                }
+            });
         })
 }
 
@@ -96,7 +149,7 @@ function loadManutencoes() {
                 } else {
                     manutencao.querySelector("#data-fim").innerHTML = e.data_fim
                 }
-                manutencao.querySelector("#valor").innerHTML = "R$" + e.valor
+                manutencao.querySelector("#valorMan").innerHTML = "R$" + e.valor
                 manutencao.querySelector("#descricao-man").innerHTML = e.descricao
 
                 document.querySelector("#info-manutencao").appendChild(manutencao)
@@ -192,7 +245,10 @@ function toggleModalAlterarMan(e) {
         document.body.style.overflow = 'auto'
     } else {
         var descricao = document.querySelector('.alterarMan').querySelector("#descMan")
+        var valor = document.querySelector('.alterarMan').querySelector("#valorM")
         idMan = e.parentNode.parentNode.querySelector('#id-man').innerHTML
+        valor.value = e.parentNode.parentNode.querySelector('#valorMan').innerHTML.slice(2)
+        console.log(valor.value)
         descricao.value = e.parentNode.parentNode.querySelector('#descricao-man').innerHTML
         if (e.id.slice(0, 1) == "s") {
             document.querySelector('.alterarMan').classList.toggle('escondido')
@@ -355,7 +411,9 @@ function alterarVeiculo() {
         "body": JSON.stringify(veiculo)
     })
         .then(response => {
-            console.log(response);
+            if (response !== undefined) {
+                window.location.reload()
+            }
         })
 }
 
@@ -379,7 +437,9 @@ function alterarOperacao() {
         "body": JSON.stringify(operacao)
     })
         .then(response => {
-            console.log(response);
+            if (response !== undefined) {
+                window.location.reload()
+            }
         })
 }
 
@@ -405,7 +465,9 @@ function alterarManutencoes() {
         "body": JSON.stringify(manutencao)
     })
         .then(response => {
-            console.log(response);
+            if (response !== undefined) {
+                window.location.reload()
+            }
         })
 }
 
@@ -427,14 +489,16 @@ function alterarMotoristas() {
         "body": JSON.stringify(motorista)
     })
         .then(response => {
-            console.log(response);
+            if (response !== undefined) {
+                window.location.reload()
+            }
         })
 }
 
 function excluirMotoristas(e) {
 
     var idMot = e.querySelector("#id-mot").innerHTML
-    
+
     var motorista = {
         "id": idMot
     }
@@ -444,22 +508,24 @@ function excluirMotoristas(e) {
     fetch("http://localhost:5000/motorista", {
         "method": "DELETE",
         "headers": {
-          "Content-Type": "application/json"
+            "Content-Type": "application/json"
         },
         "body": JSON.stringify(motorista)
-      })
-      .then(response => {
-        console.log(response);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    })
+        .then(response => {
+            if (response !== undefined) {
+                window.location.reload()
+            }
+        })
+        .catch(err => {
+            console.error(err);
+        });
 }
 
 function excluirOperacoes(e) {
 
     var idOp = e.querySelector("#id-op").innerHTML
-    
+
     var operacao = {
         "id": idOp
     }
@@ -469,22 +535,24 @@ function excluirOperacoes(e) {
     fetch("http://localhost:5000/operacao", {
         "method": "DELETE",
         "headers": {
-          "Content-Type": "application/json"
+            "Content-Type": "application/json"
         },
         "body": JSON.stringify(operacao)
-      })
-      .then(response => {
-        console.log(response);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    })
+        .then(response => {
+            if (response !== undefined) {
+                window.location.reload()
+            }
+        })
+        .catch(err => {
+            console.error(err);
+        });
 }
 
 function excluirVeiculos(e) {
 
     var idV = e.querySelector("#idV").innerHTML
-    
+
     var veiculo = {
         "id": idV
     }
@@ -494,14 +562,16 @@ function excluirVeiculos(e) {
     fetch("http://localhost:5000/veiculos", {
         "method": "DELETE",
         "headers": {
-          "Content-Type": "application/json"
+            "Content-Type": "application/json"
         },
         "body": JSON.stringify(veiculo)
-      })
-      .then(response => {
-        console.log(response);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    })
+        .then(response => {
+            if (response !== undefined) {
+                window.location.reload()
+            }
+        })
+        .catch(err => {
+            console.error(err);
+        });
 }
