@@ -23,6 +23,7 @@ model Motorista {
   cpf String @unique
   cnh String @unique
   nome String
+  disponivel Boolean @default(true)
   operacao Operacao []
 }
 
@@ -33,21 +34,27 @@ model Veiculos {
   marca String
   tipo String
   disponivel Boolean @default(true)
+  manutencao Manutencao []
+  operacao Operacao []
 }
 
 model Manutencao {
   id Int @id @default(autoincrement())
+  id_veiculo Int
   data_inicio DateTime @default(now())
   data_fim DateTime?
   valor Float
   descricao String
+  veiculos Veiculos @relation(fields: [id_veiculo], references: [id])
 }
 
 model Operacao {
   id Int @id @default(autoincrement())
+  id_veiculo Int
   id_motorista Int
   data_saida DateTime @default(now())
   data_retorno DateTime?
   descricao String
   motorista Motorista @relation(fields: [id_motorista], references: [id])
+  veiculos Veiculos @relation(fields: [id_veiculo], references: [id])
 }

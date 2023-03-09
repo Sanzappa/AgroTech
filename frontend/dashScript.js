@@ -115,7 +115,8 @@ function loadOperacoes() {
 
 
                 operacao.querySelector("#id-op").innerHTML = e.id
-                operacao.querySelector("#id-motorista").innerHTML = e.id_motorista
+                operacao.querySelector("#placaOp").innerHTML = e.veiculos.placa
+                operacao.querySelector("#nome-motorista").innerHTML = e.motorista.nome
                 operacao.querySelector("#data-saida").innerHTML = new Date(e.data_saida).toLocaleDateString('pt-br', { timeZone: 'UTC' })
                 if (e.data_retorno != null) {
                     operacao.querySelector("#data-retorno").innerHTML = new Date(e.data_retorno).toLocaleDateString('pt-br', { timeZone: 'UTC' })
@@ -143,6 +144,7 @@ function loadManutencoes() {
                 manutencao.classList.remove("model")
 
                 manutencao.querySelector("#id-man").innerHTML = e.id
+                manutencao.querySelector("#placaM").innerHTML = e.veiculos.placa
                 manutencao.querySelector("#data-inicio").innerHTML = new Date(e.data_inicio).toLocaleDateString('pt-br', { timeZone: 'UTC' })
                 if (e.data_fim != null) {
                     manutencao.querySelector("#data-fim").innerHTML = new Date(e.data_fim).toLocaleDateString('pt-br', { timeZone: 'UTC' })
@@ -174,6 +176,13 @@ function loadMotoristas() {
                 motorista.querySelector("#cpf").innerHTML = e.cpf
                 motorista.querySelector("#cnh").innerHTML = e.cnh
                 motorista.querySelector("#nome").innerHTML = e.nome
+                if (e.disponivel == true) {
+                    motorista.querySelector("#disponivelM").innerHTML = "Disponivel"
+                    motorista.querySelector("#disponivelM").style.color = "#009c27"
+                } else {
+                    motorista.querySelector("#disponivelM").innerHTML = "Indisponivel"
+                    motorista.querySelector("#disponivelM").style.color = "#fa291e"
+                }
 
                 document.querySelector("#info-motoristas").appendChild(motorista)
 
@@ -319,9 +328,11 @@ function cadastrarVeiculo() {
 function cadastrarOperacao() {
     var idMotorista = document.querySelector("#opMot")
     var descricaoO = document.querySelector("#opDesc")
+    var idVeiculo = document.querySelector("#opV")
 
     var operacao = {
         "id_motorista": parseInt(idMotorista.value),
+        "id_veiculo" : parseInt(idVeiculo.value),
         "descricao": descricaoO.value,
     }
 
@@ -574,4 +585,20 @@ function excluirVeiculos(e) {
         .catch(err => {
             console.error(err);
         });
+}
+
+function alterarGrafico(e) {
+    var optionallGr = document.querySelector(".optionallGr")
+    optionallGr.classList.remove("optionallGr")
+
+    document.getElementById(e.id).classList.add("optionallGr")
+
+    var pages = document.querySelectorAll(".dash-container")
+
+    pages.forEach(p => {
+        p.classList.add("model")
+        if (e.id == p.id) {
+            p.classList.remove("model")
+        }
+    })
 }

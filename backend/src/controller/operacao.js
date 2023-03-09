@@ -4,6 +4,25 @@ const prisma = new PrismaClient()
 
 const create = async (req, res) => {
     const info = req.body
+    console.log(info);
+
+    await prisma.veiculos.updateMany({
+        where: {
+            id: info.id_veiculo,
+        },
+        data: {
+            disponivel: false
+        }
+    })
+
+    await prisma.motorista.updateMany({
+        where: {
+            id: info.id_motorista
+        },
+        data: {
+            disponivel: false
+        }
+    })
 
     const operacao = await prisma.operacao.createMany({
         data: info
@@ -13,7 +32,16 @@ const create = async (req, res) => {
 }
 
 const read = async (req, res) => {
-    const operacao = await prisma.operacao.findMany()
+    const operacao = await prisma.operacao.findMany({
+        select: {
+            veiculos: true,
+            motorista: true,
+            id: true,
+            data_saida: true,
+            data_retorno: true,
+            descricao: true
+        }
+    })
 
     res.status(200).json(operacao).end()
 }
