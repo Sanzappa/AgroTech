@@ -36,10 +36,10 @@ const login = async (req, res) => {
         bcrypt.compare(req.body.senha, usuario.senha).then((value) => {
             if (value) {
                 let data = { "userid": usuario.id, "tipo": usuario.tipo }
-                jwt.sign(data, process.env.KEY, { expiresIn: '1m' }, function (err2, token) {
+                jwt.sign(data, process.env.KEY, { expiresIn: '10m' }, function (err2, token) {
                     if (err2 == null) {
 
-                        res.status(200).json({ "token": token, "usertipo": usuario.tipo, "username": usuario.nome, "validacao": true }).end()
+                        res.status(200).json({ "userid": usuario.id,  "token": token, "usertipo": usuario.tipo, "username": usuario.nome, "validacao": true }).end()
                     } else {
                         res.status(500).json(err2).end()
                     }
@@ -64,6 +64,8 @@ const remover = async (req, res) => {
     })
     res.status(200).json({ msg: "Usuario deletado" }).end()
 }
+
+
 
 module.exports = {
     login,

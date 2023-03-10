@@ -13,6 +13,16 @@ const create = async (req, res) => {
 }
 
 const read = async (req, res) => {
+
+    await prisma.veiculos.updateMany({
+        where: {
+            id: req.body.id_veiculo,
+        },
+        data: {
+            disponivel: false
+        }
+    })
+
     const manutencao = await prisma.manutencao.findMany({
         select: {
             veiculos: true,

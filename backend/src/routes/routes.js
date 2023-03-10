@@ -19,6 +19,7 @@ router.post('/veiculos', Veiculos.create)
 router.post('/operacao', Operacao.create)
 router.post('/usuario', Usuario.create)
 router.post('/login', Usuario.login)
+router.post('/validarUser', Middleware.verificar)
 
 router.delete('/motorista', Motorista.remove)
 router.delete('/manutencao', Manutencao.remove)

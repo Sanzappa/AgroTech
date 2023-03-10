@@ -170,7 +170,8 @@ function loadMotoristas() {
             response.forEach(e => {
 
                 var motorista = document.querySelector("#info-motoristas").querySelector("#tr").cloneNode(true)
-                motorista.classList.remove("model")
+                motorista.classList.remove("model") 
+                console.log(motorista);
 
                 motorista.querySelector("#id-mot").innerHTML = e.id
                 motorista.querySelector("#cpf").innerHTML = e.cpf
@@ -351,10 +352,12 @@ function cadastrarOperacao() {
 }
 
 function cadastrarManutencao() {
+    var placaMan = document.querySelector("#manVeic")
     var valor = document.querySelector("#manValor")
     var descricaoM = document.querySelector("#manDesc")
 
     var manutencao = {
+        "id_veiculo": parseInt(placaMan.value),
         "valor": parseFloat(valor.value),
         "descricao": descricaoM.value,
     }
@@ -601,4 +604,9 @@ function alterarGrafico(e) {
             p.classList.remove("model")
         }
     })
+}
+
+function deslogar() {
+    window.location.href = "./login.html"
+    window.localStorage.removeItem('uinfo')
 }

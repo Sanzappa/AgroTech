@@ -7,6 +7,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AgroTech</title>
+    <script>
+        var uinfo = window.localStorage.getItem('uinfo')
+        if (uinfo !== null) {
+            console.log(uinfo);
+            uinfo = JSON.parse(uinfo)
+            const options = {
+                method: 'POST',
+                headers: {
+                Authorization: `${uinfo.token}`,
+                'Content-Type': 'application/json'
+                },
+                body: `{"id":${uinfo.userid}}`
+            };
+            
+            fetch('http://localhost:5000/validarUser', options)
+                .then(response => response.json())
+                .then(response => {
+                    if (!response.validar) {
+                        window.localStorage.removeItem('uinfo')
+                    } else {
+
+                        if (response.tipo == "Gerente") {
+                            window.location.href = './dashboard.html'
+                        } else {
+                            window.location.href = './funcionario.html'
+                        }
+                        
+                    }
+                })
+        }
+    </script>
 </head>
 
 <body>

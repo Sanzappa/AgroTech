@@ -5,9 +5,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>AgroTech</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>AgroTech</title>
+    
     <link rel="stylesheet" href="./dashStyle.css">
+    <script>
+        var uinfo = window.localStorage.getItem('uinfo')
+        console.log(uinfo !== null)
+        if (uinfo !== null) {
+            uinfo = JSON.parse(uinfo)
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Authorization': `${uinfo.token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: `{"id":${uinfo.userid}}`
+            };
+
+            console.log(options)
+
+            fetch('http://localhost:5000/validarUser', options)
+                .then(response => response.json())
+                .then(response => {
+                    console.log(response);
+                    if (!response.validar) {
+                        window.localStorage.removeItem('uinfo')
+                        window.location.href = "./login"
+                    }
+                })
+        } else {
+            window.location.href = "./login"
+        }
+    </script>
 </head>
 
 <body onload="loadVeiculos(), loadOperacoes(), loadManutencoes(), loadMotoristas()">
@@ -44,7 +74,7 @@
                         <img src="http://cdn.onlinewebfonts.com/svg/img_233159.png" class="nav-img" alt="dashboard">
                         <h3> DashBoard</h3>
                     </div>
-                    <div class="nav-option logout">
+                    <div class="nav-option logout" onclick="deslogar()">
                         <img src="https://cdn-icons-png.flaticon.com/512/5714/5714125.png" class="nav-img" alt="logout">
                         <h3>Sair</h3>
                     </div>
@@ -163,6 +193,7 @@
                 <button class="view" onclick="toggleModal(this)" id="btn3">Cadastrar</button>
                 <div class='modal escondido'>
                     <div class='modal-container'> <span class='close' onclick='toggleModal(this)' id="sp3">X</span>
+                        <input placeholder="Id do Veiculo" type="number" id="manVeic">
                         <input placeholder="Valor" type="number" id="manValor">
                         <input placeholder="Descrição" type="text" id="manDesc">
                         <button onclick="cadastrarManutencao()"><span>Cadastrar</span></button>
@@ -267,7 +298,7 @@
                     <div class="button_slide slide_right nav-option optionGr3 optionallGr"
                         onclick="alterarGrafico(this)" id="op3">Manutenções</div>
                 </h1>
-                
+
                 <div class='modal alterarMot escondido'>
                     <div class='modal-container'> <span class='close' onclick='toggleModalAlterarMot(null)'
                             id="sp6">X</span>
@@ -276,28 +307,29 @@
                     </div>
                 </div>
             </div>
-            <div class="dash-container"id="op1">
+            <div class="dash-container" id="op1">
                 <div class="DoughVChart" style="width: 300px; height: 300px;">
                     <canvas id="myChart"></canvas>
                     <canvas id="doughVChart2"></canvas>
                 </div>
             </div>
-            <div class="dash-container"id="op2">
+            <div class="dash-container" id="op2">
                 <div class="DoughVChart" style="width: 300px; height: 300px;">
                     <canvas id="myChart"></canvas>
                     <canvas id="doughVChart2"></canvas>
                 </div>
             </div>
-            <div class="dash-container"id="op3">
+            <div class="dash-container" id="op3">
                 <div class="DoughVChart" style="width: 300px; height: 300px;">
                     <canvas id="myChart"></canvas>
                     <canvas id="doughVChart2"></canvas>
                 </div>
             </div>
-            
+
         </div>
     </div>
     </div>
+ 
     <script src="./dashScript.js"></script>
 </body>
 

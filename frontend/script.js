@@ -62,7 +62,8 @@ function login() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 "email": email,
-                "senha": pass
+                "senha": pass,
+
             })
         };
 
@@ -70,7 +71,7 @@ function login() {
             .then(response => response.json())
             .then(response => {
                 if (response.validacao === true) {
-                    localStorage.setItem('email', email)
+                    localStorage.setItem('uinfo', JSON.stringify(response))
                     if (response.usertipo === 'Gerente') {
                       window.location.href = "./dashboard.html"
                     }else{
