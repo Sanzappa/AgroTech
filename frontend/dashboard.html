@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>AgroTech</title>
-    
+
     <link rel="stylesheet" href="./dashStyle.css">
     <script>
         var uinfo = window.localStorage.getItem('uinfo')
@@ -40,7 +40,7 @@
     </script>
 </head>
 
-<body onload="loadVeiculos(), loadOperacoes(), loadManutencoes(), loadMotoristas()">
+<body onload="loadVeiculos(), loadOperacoes(), loadManutencoes(), loadMotoristas(), loadManVal()">
     <header>
         <div class="logosec">
             <div class="logo">AgroTech</div>
@@ -307,29 +307,35 @@
                     </div>
                 </div>
             </div>
-            <div class="dash-container" id="op1">
-                <div class="DoughVChart" style="width: 300px; height: 300px;">
-                    <canvas id="myChart"></canvas>
-                    <canvas id="doughVChart2"></canvas>
+                <div class="dash-container" id="op1">
+                    <div class="DoughVChart" style="width: 300px; height: 300px;">
+                        <div class="graficVS">
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="graficVS2"style="width: 300px; height: 300px;">
+                        <canvas id="doughVChart2"></canvas>
+                    </div>
+                </div>
+            <div class="dash-container model" id="op2" >
+                <div class="DoughOpChart" style="width: 300px; height: 300px;">
+                    <div class="graficOS">
+                        <canvas id="opChart1"></canvas>
+                    </div>
                 </div>
             </div>
-            <div class="dash-container" id="op2">
-                <div class="DoughVChart" style="width: 300px; height: 300px;">
-                    <canvas id="myChart"></canvas>
-                    <canvas id="doughVChart2"></canvas>
+            <div class="dash-container model" id="op3" >
+                <div class="BarG" style="width: 3000px; height: 3000px;">
+                    <div class="graficOS">
+                        <canvas id="manChart1"></canvas>
+                    </div>
                 </div>
             </div>
-            <div class="dash-container" id="op3">
-                <div class="DoughVChart" style="width: 300px; height: 300px;">
-                    <canvas id="myChart"></canvas>
-                    <canvas id="doughVChart2"></canvas>
-                </div>
-            </div>
-
         </div>
     </div>
     </div>
- 
+    </div>
+
     <script src="./dashScript.js"></script>
 </body>
 

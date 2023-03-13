@@ -12,6 +12,7 @@ router.get('/motorista', Motorista.read);
 router.get('/veiculos', Veiculos.read);
 router.get('/operacao', Operacao.read);
 router.get('/manutencao', Manutencao.read);
+router.get('/manutencaor', Manutencao.readMaior)
 
 router.post('/motorista', Motorista.create)
 router.post('/manutencao', Manutencao.create)

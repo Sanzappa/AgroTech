@@ -19,6 +19,7 @@ const read = async (req, res) => {
 }
 
 const update = async (req, res) => {
+    console.log('achouVeic');
     let id = Number(req.body.id)
     delete req.body.id
     const veiculos = await prisma.veiculos.update({

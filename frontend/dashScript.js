@@ -21,6 +21,7 @@ function loadVeiculos() {
     })
         .then(response => response.json())
         .then(response => {
+            var quantV = [0, 0, 0]
             console.log(response)
             response.forEach(e => {
 
@@ -41,11 +42,21 @@ function loadVeiculos() {
                     veiculos.querySelector("#disponibilidade").style.color = "#fa291e"
                 }
 
+                if (e.tipo == "visita") {
+                    quantV[2]++
+                } else if (e.tipo == "carga") {
+                    quantV[1]++
+                } else {
+                    quantV[0]++
+                }
+
                 document.querySelector("#info-veiculo").appendChild(veiculos)
 
 
 
             })
+
+
             //Grafico de Barras
 
             let VeiculoLivre = response.reduce((contador, disponibilidade) => disponibilidade.disponivel ? contador + 1 : contador, 0)
@@ -61,21 +72,16 @@ function loadVeiculos() {
                         data: [VeiculoLivre, VeiculoOcupado],
                         borderWidth: 1,
                         backgroundColor: [
-                            'rgb(255, 99, 132)',
-                            'rgb(54, 162, 235)',
+                            'green',
+                            'red',
                         ]
                     }]
                 },
                 options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                        }
-                    }
                 }
             });
 
-            
+
             const DoughVTChart = document.getElementById('doughVChart2');
 
             new Chart(DoughVTChart, {
@@ -84,7 +90,7 @@ function loadVeiculos() {
                     labels: ['Venda', 'Carga', 'Visita'],
                     datasets: [{
                         label: 'Tipo Veicular',
-                        data: [VeiculoVenda, VeiculoCarga, VeiculoVisita],
+                        data: quantV,
                         borderWidth: 1,
                         backgroundColor: [
                             'rgb(255, 99, 132)',
@@ -94,7 +100,11 @@ function loadVeiculos() {
                     }]
                 },
                 options: {
-                    
+                    plugins: {
+                        tooltip: {
+                            enabled: true
+                        }
+                    }
                 }
             });
         })
@@ -108,6 +118,7 @@ function loadOperacoes() {
         .then(response => response.json())
         .then(response => {
             console.log(response)
+            var dataOp = [0, 0]
             response.forEach(e => {
 
                 var operacao = document.querySelector("#info-operacao").querySelector("#tr").cloneNode(true)
@@ -119,14 +130,37 @@ function loadOperacoes() {
                 operacao.querySelector("#nome-motorista").innerHTML = e.motorista.nome
                 operacao.querySelector("#data-saida").innerHTML = new Date(e.data_saida).toLocaleDateString('pt-br', { timeZone: 'UTC' })
                 if (e.data_retorno != null) {
+                    dataOp[1]++
                     operacao.querySelector("#data-retorno").innerHTML = new Date(e.data_retorno).toLocaleDateString('pt-br', { timeZone: 'UTC' })
                 } else {
+                    dataOp[0]++
                     operacao.querySelector("#data-retorno").innerHTML = e.data_retorno
                 }
+
                 operacao.querySelector("#descricao").innerHTML = e.descricao
 
                 document.querySelector("#info-operacao").appendChild(operacao)
             })
+
+            const DoughOpChart = document.getElementById('opChart1');
+
+            new Chart(DoughOpChart, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Em Operação', 'Fora de Operação'],
+                    datasets: [{
+                        label: 'Operações',
+                        data: dataOp,
+                        borderWidth: 1,
+                        backgroundColor: [
+                            'green',
+                            'red',
+                        ]
+                    }]
+                },
+                options: {
+                }
+            });
         })
 }
 
@@ -159,6 +193,53 @@ function loadManutencoes() {
             })
         })
 }
+
+function loadManVal() {
+    fetch("http://localhost:5000/manutencaor", {
+        "method": "GET",
+        "headers": {}
+    })
+        .then(response => response.json())
+        .then(response => {
+            let dataMan = []
+            let labelMan = []
+            response.forEach(e => {
+                dataMan.push(e.valor)
+                labelMan.push(e.id)
+            })
+            console.log(dataMan);
+
+            const BarG = document.getElementById('manChart1');
+
+            new Chart(BarG, {
+                type: 'bar',
+                data: {
+                    labels: labelMan,
+                    datasets: [{
+                        data: dataMan,
+                        backgroundColor: ['red', 'blue'],
+                        borderWidth: 1
+                    }],
+                options: {
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: 'Manutenções Com Maior Gasto'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                    }
+                }
+            })
+        })
+}
 function loadMotoristas() {
     fetch("http://localhost:5000/motorista", {
         "method": "GET",
@@ -170,7 +251,7 @@ function loadMotoristas() {
             response.forEach(e => {
 
                 var motorista = document.querySelector("#info-motoristas").querySelector("#tr").cloneNode(true)
-                motorista.classList.remove("model") 
+                motorista.classList.remove("model")
                 console.log(motorista);
 
                 motorista.querySelector("#id-mot").innerHTML = e.id
@@ -333,7 +414,7 @@ function cadastrarOperacao() {
 
     var operacao = {
         "id_motorista": parseInt(idMotorista.value),
-        "id_veiculo" : parseInt(idVeiculo.value),
+        "id_veiculo": parseInt(idVeiculo.value),
         "descricao": descricaoO.value,
     }
 

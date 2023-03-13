@@ -5,15 +5,6 @@ const prisma = new PrismaClient()
 const create = async (req, res) => {
     const info = req.body
 
-    const manutencao = await prisma.manutencao.createMany({
-        data: info
-    })
-
-    res.status(200).json(manutencao).end()
-}
-
-const read = async (req, res) => {
-
     await prisma.veiculos.updateMany({
         where: {
             id: req.body.id_veiculo,
@@ -23,6 +14,15 @@ const read = async (req, res) => {
         }
     })
 
+    const manutencao = await prisma.manutencao.createMany({
+        data: info
+    })
+
+    res.status(200).json(manutencao).end()
+}
+
+const read = async (req, res) => {
+
     const manutencao = await prisma.manutencao.findMany({
         select: {
             veiculos: true,
@@ -31,6 +31,25 @@ const read = async (req, res) => {
             data_fim: true,
             valor: true,
             descricao: true
+        }
+    })
+
+    res.status(200).json(manutencao).end()
+}
+
+const readMaior = async (req, res) => {
+
+    const manutencao = await prisma.manutencao.findMany({
+        select: {
+            veiculos: true,
+            id: true,
+            data_inicio: true,
+            data_fim: true,
+            valor: true,
+            descricao: true
+        },
+        orderBy: {
+            valor: 'desc'
         }
     })
 
@@ -68,6 +87,7 @@ const remove = async (req, res) => {
 module.exports = {
     create,
     read,
+    readMaior,
     update,
     remove
 }

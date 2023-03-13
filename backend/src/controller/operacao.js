@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 
 const create = async (req, res) => {
     const info = req.body
-    console.log(info);
+    console.log('achouOp');
 
     await prisma.veiculos.updateMany({
         where: {
