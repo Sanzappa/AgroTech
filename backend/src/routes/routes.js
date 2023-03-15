@@ -30,6 +30,8 @@ router.delete('/operacao', Operacao.remove)
 router.put('/motorista', Motorista.update)
 router.put('/manutencao', Manutencao.update)
 router.put('/veiculos', Veiculos.update)
+router.put('/veicDispT', Veiculos.updateDispTrue)
+router.put('/veicDispF', Veiculos.updateDispFalse)
 router.put('/operacao', Operacao.update)
 
 router.delete('/delete', Middleware.validaAcesso, Usuario.remover)

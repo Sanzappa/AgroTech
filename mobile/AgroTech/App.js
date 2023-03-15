@@ -2,7 +2,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { MaterialCommunityIcons, AntDesign, Octicons, FontAwesome } from '@expo/vector-icons';
+import { MaterialCommunityIcons, AntDesign, Octicons, FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import 'react-native-gesture-handler';
 
 import telaLogin from './pages/login'
@@ -17,17 +17,17 @@ function TelaAll() {
   return(
     <Tab.Navigator
             initialRouteName="Disponibilidade"
-            activeColor="#e91e63"
+            activeColor="#000000"
             labelStyle={{ fontSize: 12, color: "#fff" }}
-            barStyle={{ backgroundColor: '#3b2fa3'}}
+            barStyle={{ backgroundColor: '#2f8f5b'}}
         >
             <Tab.Screen
                 name="Disponibilidade"
                 component={disponibilidade}
                 options={{
-                    tabBarLabel: '',
+                    tabBarLabel: 'Disponibilidade',
                     tabBarIcon: ({ color }) => (
-                        <Octicons name="feed-discussion" color={color} size={26} />
+                        <MaterialIcons name="event-available" color={color} size={26} />
                     ),
                 }}
             />
@@ -35,9 +35,9 @@ function TelaAll() {
                 name="Manutencao"
                 component={manutencao}
                 options={{
-                    tabBarLabel: "",
+                    tabBarLabel: "Manutenção",
                     tabBarIcon: ({ color }) => (
-                        <MaterialCommunityIcons name="plus" color={color} size={26} />
+                        <MaterialCommunityIcons name="tools" color={color} size={26} />
                     ),
                 }}
             />

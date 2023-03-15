@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-web';
 
-export default function Abertas({ route }) {
+export default function Manutencao({ route }) {
     const [manutencao, setManutencao] = useState([]);
 
     useEffect(() => {
@@ -23,12 +23,16 @@ export default function Abertas({ route }) {
                 <Text style={styles.text} >Manutenções</Text>
                 {
                     manutencao.map((manutencao, index) => {
+                        var dateIn = new Date(manutencao.data_inicio)
+                        var dateF = new Date(manutencao.data_fim)
+                        var dtI = dateIn.toLocaleDateString('pt-BR', { timeZone: 'UTC' })
+                        var dtF = dateF.toLocaleDateString('pt-BR', { timeZone: 'UTC' })
                         return (
-                            <View style={styles.tarefa} key={index}>
-                                <View style={styles.tarefaL} >
+                            <View style={styles.veic} key={index}>
+                                <View style={styles.veicL} >
                                     <Text style={styles.info}>Id da Manutencao : {manutencao.id}</Text>
-                                    <Text style={styles.info}>Data de Inicio : {manutencao.data_inicio}</Text>
-                                    <Text style={styles.info}>Data de Fim : {manutencao.data_fim}</Text>
+                                    <Text style={styles.info}>Data de Inicio : {dtI}</Text>
+                                    <Text style={styles.info}>Data de Fim : {dtF}</Text>
                                     <Text style={styles.info}>Valor : {manutencao.valor}</Text>
                                     <Text style={styles.info}>Descrição : {manutencao.descricao}</Text>
                                 </View>
@@ -51,7 +55,7 @@ const styles = StyleSheet.create({
         display: "flex",
         alignItems: "center",
         flexDirection: "column",
-        backgroundColor: "#505050",
+        backgroundColor: "#dce5fd",
         width: "100%",
         flex: 1,
         padding: 20
@@ -62,9 +66,10 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     btn: {
+        marginTop: 5,
         height: 40,
-        width: 70,
-        backgroundColor: "#e53f86",
+        width: 100,
+        backgroundColor: "#2f8f5b",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -75,10 +80,10 @@ const styles = StyleSheet.create({
     te: {
         fontSize: "10pt"
     },
-    tarefa: {
+    veic: {
         width: "100%",
-        height: "200px",
-        backgroundColor: "#46589c",
+        height: "250px",
+        backgroundColor: "#ffffff",
         display: "flex",
         justifyContent: "space-between",
         flexDirection: "row",
@@ -87,13 +92,13 @@ const styles = StyleSheet.create({
         borderRadius: "10px",
         marginBottom: "30px"
     },
-    tarefaL: {
+    veicL: {
         maxWidth: "78%"
     },
     info: {
         fontSize: "13pt",
         fontWeight: "bold",
-        color: "#fff"
+        color: "#000000"
     },
     infoP: {
         fontSize: "11pt",
@@ -102,6 +107,9 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: "30pt",
+        color: "#2f8f5b"
+    },
+    textBt: {
         color: "#fff"
     }
 

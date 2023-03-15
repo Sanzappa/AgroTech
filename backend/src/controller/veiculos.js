@@ -18,6 +18,36 @@ const read = async (req, res) => {
     res.status(200).json(veiculos).end()
 }
 
+const updateDispFalse = async (req, res) => {
+    let id = Number(req.body.id)
+    delete req.body.id
+    const veiculos = await prisma.veiculos.update({
+        where: {
+            id: id
+        },
+        data: {
+            disponivel: false
+        }
+    })
+
+    res.status(200).json(veiculos).end()
+}
+
+const updateDispTrue = async (req, res) => {
+    let id = Number(req.body.id)
+    delete req.body.id
+    const veiculos = await prisma.veiculos.update({
+        where: {
+            id: id
+        },
+        data: {
+            disponivel: true
+        }
+    })
+
+    res.status(200).json(veiculos).end()
+}
+
 const update = async (req, res) => {
     console.log('achouVeic');
     let id = Number(req.body.id)
@@ -46,5 +76,7 @@ module.exports = {
     create,
     read,
     update,
+    updateDispTrue,
+    updateDispFalse,
     remove
 }
