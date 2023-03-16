@@ -17,48 +17,6 @@ export default function Disponibilidade({ route }) {
             })
     }
 
-    const dispOpacityT = (id) => {
-        var dispon = {
-            "id": id,
-            "disponivel": true
-        }
-
-        fetch("http://localhost:5000/veicDispT", {
-            "method": "PUT",
-            "headers": {
-                "Content-Type": "application/json"
-            },
-            "body": JSON.stringify(dispon)
-        })
-            .then(response => {
-                if (response !== undefined) {
-                    window.location.reload()
-                }
-
-            })
-    }
-
-    const dispOpacityF = (id) => {
-        var dispon = {
-            "id": id,
-            "disponivel": false
-        }
-
-        fetch("http://localhost:5000/veicDispF", {
-            "method": "PUT",
-            "headers": {
-                "Content-Type": "application/json"
-            },
-            "body": JSON.stringify(dispon)
-        })
-            .then(response => {
-                if (response !== undefined) {
-                    window.location.reload()
-                }
-
-            })
-    }
-
     return (
         <View style={styles.v} >
             <ScrollView>
@@ -75,16 +33,6 @@ export default function Disponibilidade({ route }) {
                                     <Text style={styles.info}>Tipo : {veiculos.tipo}</Text>
                                     <Text style={styles.info} >Disponibilidade : {veiculos.disponivel ? "Disponível" : "Indisponível"}</Text>
                                     <View style={styles.viBTN}>
-                                        <TouchableOpacity style={styles.btn} onPress={() => {
-                                            dispOpacityT(veiculos.id)
-                                        }}>
-                                            <Text style={styles.textBt}>Disponibilizar</Text>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity style={styles.btn} onPress={() => {
-                                            dispOpacityF(veiculos.id)
-                                        }}>
-                                            <Text style={styles.textBt}>Indisponibilizar</Text>
-                                        </TouchableOpacity>
                                     </View>
                                 </View>
                             </View>

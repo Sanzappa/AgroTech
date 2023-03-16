@@ -59,8 +59,19 @@ const readMaior = async (req, res) => {
 const update = async (req, res) => {
     let id = Number(req.body.id)
     delete req.body.id
-    var info = req.body
     
+    await prisma.veiculos.updateMany({
+        where: {
+            id: req.body.id_veiculo,
+        },
+        data: {
+            disponivel: true
+        }
+    })
+    delete req.body.id_motorista
+    
+    var info = req.body
+
     if (info.data_fim !== undefined) {
         info.data_fim = new Date(req.body.data_fim)
     }

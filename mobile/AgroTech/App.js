@@ -8,6 +8,7 @@ import 'react-native-gesture-handler';
 import telaLogin from './pages/login'
 import disponibilidade from './pages/disponibilidade';
 import manutencao from './pages/manutencao';
+import operacao from './pages/operacao';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,9 +36,19 @@ function TelaAll() {
                 name="Manutencao"
                 component={manutencao}
                 options={{
-                    tabBarLabel: "Manutenção",
+                    tabBarLabel: "Manutenções",
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons name="tools" color={color} size={26} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="Operacao"
+                component={operacao}
+                options={{
+                    tabBarLabel: "Operações",
+                    tabBarIcon: ({ color }) => (
+                        <MaterialCommunityIcons name="truck-fast" color={color} size={26} />
                     ),
                 }}
             />

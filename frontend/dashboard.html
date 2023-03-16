@@ -116,7 +116,6 @@
                             <td>Tipo</td>
                             <td>Disponibilidade</td>
                             <td></td>
-                            <td></td>
                         </tr>
                     </thead>
                     <tbody id="info-veiculo">
@@ -128,8 +127,6 @@
                             <td id="tipo"></td>
                             <td id="disponibilidade"></td>
                             <td id="alterar"><button onclick="toggleModalAlterar(this)">Alterar</button></td>
-                            <td id="excluir"><button
-                                    onclick="excluirVeiculos(this.parentNode.parentNode)">Excluir</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -266,7 +263,6 @@
                             <td>Nome</td>
                             <td>Disponibilidade</td>
                             <td></td>
-                            <td></td>
                         </tr>
                     </thead>
                     <tbody id="info-motoristas">
@@ -277,8 +273,6 @@
                             <td id="nome"></td>
                             <td id="disponivelM"></td>
                             <td id="alterarMotor"><button onclick="toggleModalAlterarMot(this)">Alterar</button></td>
-                            <td id="excluirMotor"><button
-                                    onclick="excluirMotoristas(this.parentNode.parentNode)">Excluir</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -328,6 +322,7 @@
                 <div class="BarG" style="width: 3000px; height: 3000px;">
                     <div class="graficOS">
                         <canvas id="manChart1"></canvas>
+                        <h1>Manutenções do Maior ao Menor gasto</h1>
                     </div>
                 </div>
             </div>

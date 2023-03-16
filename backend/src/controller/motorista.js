@@ -37,7 +37,6 @@ const remove = async (req, res) => {
             id: Number(req.body.id)
         }
     })
-
     res.status(200).json(motorista).end()
 }
 

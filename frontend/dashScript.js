@@ -147,7 +147,7 @@ function loadOperacoes() {
             new Chart(DoughOpChart, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Em Operação', 'Fora de Operação'],
+                    labels: ['Operações em Andamento', 'Operações finalizadas'],
                     datasets: [{
                         label: 'Operações',
                         data: dataOp,

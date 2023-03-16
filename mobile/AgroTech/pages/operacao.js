@@ -1,40 +1,41 @@
 import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-web';
-import Operacao from './operacao';
 
-export default function Manutencao({ route }) {
-    const [manutencao, setManutencao] = useState([]);
+export default function Operacao({ route }) {
+    const [operacao, setOperacao] = useState([]);
     const [at, setAt] = useState()
 
     useEffect(() => {
-        listarManutencao();
+        listarOperacao();
     }, [at])
 
-    const listarManutencao = () => {
-        fetch("http://localhost:5000/manutencao")
+    const listarOperacao = () => {
+        fetch("http://localhost:5000/operacao")
             .then(response => { return response.json(); })
             .then(data => {
-                setManutencao(data);
+                setOperacao(data);
             })
     }
 
-    const finalizar = (idM, idVeic) => {
+    const finalizar = (idOp, idVeic, idMot) => {
         var date = new Date(Date.now())
         console.log(JSON.stringify({
+            "id_motorista": idMot,
             "id_veiculo": idVeic,
-            "id": idM,
-            "data_fim": date
+            "id": idOp,
+            "data_retorno": date
         }))
-        fetch("http://localhost:5000/manutencao", {
+        fetch("http://localhost:5000/operacao", {
             "method": "PUT",
             "headers": {
                 "Content-Type": "application/json"
             },
             "body": JSON.stringify({
+                "id_motorista": idMot,
                 "id_veiculo": idVeic,
-                "id": idM,
-                "data_fim": date
+                "id": idOp,
+                "data_retorno": date
             })
         })
             .then(response =>response.json())
@@ -45,49 +46,54 @@ export default function Manutencao({ route }) {
 
     }
 
+
     return (
         <View style={styles.v} >
             <ScrollView>
-                <Text style={styles.text} >Manutenções</Text>
+                <Text style={styles.text} >Operações</Text>
                 {
-                    manutencao.reverse().map((manutencao, index) => {
-                        var dateIn = new Date(manutencao.data_inicio)
-                        var dateF = new Date(manutencao.data_fim)
+                    operacao.reverse().map((operacao, index) => {
+                        var dateIn = new Date(operacao.data_saida)
+                        var dateF = new Date(operacao.data_retorno)
                         var dtI = dateIn.toLocaleDateString('pt-BR', { timeZone: 'UTC' })
                         var dtF = dateF.toLocaleDateString('pt-BR', { timeZone: 'UTC' })
-                        if(manutencao.data_fim !== null ){
+                        if (operacao.data_retorno !== null) {
                             return (
                                 <View style={styles.veic} key={index}>
                                     <View style={styles.veicL} >
-                                        <Text style={styles.info}>Id da Manutencao : {manutencao.id}</Text>
-                                        <Text style={styles.info}>Data de Inicio : {dtI}</Text>
-                                        <Text style={styles.info}>Data de Fim : {dtF}</Text>
-                                        <Text style={styles.info}>Valor : {manutencao.valor}</Text>
-                                        <Text style={styles.info}>Descrição : {manutencao.descricao}</Text>
+                                        <Text style={styles.info}>Id Da Operacao : {operacao.id}</Text>
+                                        <Text style={styles.info}>Placa Do Veiculo : {operacao.veiculos.placa}</Text>
+                                        <Text style={styles.info}>Nome do Motorista : {operacao.motorista.nome}</Text>
+                                        <Text style={styles.info}>Data de Saida : {dtI}</Text>
+                                        <Text style={styles.info}>Data de Retorno : {dtF}</Text>
+                                        <Text style={styles.info}>Descrição : {operacao.descricao}</Text>
+
                                     </View>
                                 </View>
                             )
-                        }else{
-                        
-                        return (
-                            <View style={styles.veic} key={index}>
-                                <View style={styles.veicL} >
-                                    <Text style={styles.info}>Id da Manutencao : {manutencao.id}</Text>
-                                    <Text style={styles.info}>Data de Inicio : {dtI}</Text>
-                                    <Text style={styles.info}>Data de Fim : {dtF}</Text>
-                                    <Text style={styles.info}>Valor : {manutencao.valor}</Text>
-                                    <Text style={styles.info}>Descrição : {manutencao.descricao}</Text>
-                                    <View style={styles.viBTN} >
+                        } else {
+
+
+                            return (
+                                <View style={styles.veic} key={index}>
+                                    <View style={styles.veicL} >
+                                        <Text style={styles.info}>Id Da Operacao : {operacao.id}</Text>
+                                        <Text style={styles.info}>Placa Do Veiculo : {operacao.veiculos.placa}</Text>
+                                        <Text style={styles.info}>Nome do Motorista : {operacao.motorista.nome}</Text>
+                                        <Text style={styles.info}>Data de Saida : {dtI}</Text>
+                                        <Text style={styles.info}>Data de Retorno : Ainda Não Retornou</Text>
+                                        <Text style={styles.info}>Descrição : {operacao.descricao}</Text>
+                                        <View style={styles.viBTN} >
                                             <TouchableOpacity style={styles.btn} onPress={() => {
-                                                finalizar(manutencao.id, manutencao.veiculos.id)
+                                                finalizar(operacao.id, operacao.veiculos.id, operacao.motorista.id)
                                             }}>
                                                 <Text style={styles.textBt}>Finalizar</Text>
                                             </TouchableOpacity>
                                         </View>
+                                    </View>
                                 </View>
-                            </View>
-                        )
-                    }
+                            )
+                        }
                     })
                 }
             </ScrollView>
@@ -164,3 +170,4 @@ const styles = StyleSheet.create({
     }
 
 });
+
