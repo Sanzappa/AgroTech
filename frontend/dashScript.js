@@ -1,3 +1,5 @@
+const { response } = require("express")
+
 function alterarPage(e) {
     var optionall = document.querySelector(".optionall")
     optionall.classList.remove("optionall")
@@ -425,9 +427,13 @@ function cadastrarOperacao() {
         },
         "body": JSON.stringify(operacao)
     })
+    .then(response => response.json())
         .then(response => {
-            if (response !== undefined) {
+            console.log(response);
+            if (response !== "Veiculo ou Motorista Em Uso") {
                 window.location.reload()
+            } else {
+                window.alert("Veiculo ou Motorista Em Uso")
             }
         })
 }
