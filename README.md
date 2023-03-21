@@ -1,6 +1,6 @@
 
 # AgroTech
-- É necessario ter instalado **NodeJS**, **XAMPP**, **EXPO**
+- É necessario ter instalado **NodeJS**, **XAMPP**, **EXPO**, **Reac-Native**, **Prisma**
 
 - Tutorial de execução:
 
